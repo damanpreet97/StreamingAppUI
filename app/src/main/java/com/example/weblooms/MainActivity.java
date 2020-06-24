@@ -3,6 +3,7 @@ package com.example.weblooms;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.weblooms.ui.dashboard.DashboardFragment;
 import com.example.weblooms.ui.home.HomeFragment;
 import com.example.weblooms.ui.notifications.NotificationsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                         openFragment(new HomeFragment());
                             return true;
                     case R.id.navigation_account:
-                        openFragment(new NotificationsFragment());
+                        openFragment(new DashboardFragment());
                         return true;
                 }
                 return false;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
+        transaction.replace(R.id.nav_host_fragment, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

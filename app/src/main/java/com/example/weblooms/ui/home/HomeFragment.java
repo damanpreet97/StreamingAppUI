@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.weblooms.MainActivity;
 import com.example.weblooms.R;
 import com.example.weblooms.ui.dashboard.DashboardFragment;
 import com.example.weblooms.ui.notifications.NotificationsFragment;
@@ -52,14 +54,14 @@ public class HomeFragment extends Fragment {
 //        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 //        getActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        getSupportActionBar().setDisplayShowHomeEnabled(false);
-
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//
+//        final TextView textView = root.findViewById(R.id.text_home);
+//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
         return root;
     }
 
@@ -70,17 +72,24 @@ public class HomeFragment extends Fragment {
         viewPager = view.findViewById(R.id.pager);
         viewPager.setAdapter(viewPagerFragmentAdapter);
         tabLayout = view.findViewById(R.id.tab_layout);
+        viewPager.setUserInputEnabled(true);
 
         new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         tab.setText(titles[position]);
-//                        tab.text = Card.DECK[position].toString();
                     }
                 }
         ).attach();
 
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                Toast.makeText(getContext(), "pager register "+position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -103,8 +112,10 @@ public class HomeFragment extends Fragment {
                     Log.e("TAG", "switch: " + position);
                     return new DashboardFragment();
                 case 1:
+                    Log.e("TAG", "switch: " + position);
                     return new NotificationsFragment();
                 case 2:
+                    Log.e("TAG", "switch: " + position);
                     return new NotificationsFragment();
             }
             Log.e("TAG", "createFragment outside switch: " + position );
@@ -116,4 +127,17 @@ public class HomeFragment extends Fragment {
             return titles.length;
         }
     }
+
+    ViewPager2.OnPageChangeCallback pageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageSelected(int position) {
+            super.onPageSelected(position);
+                Toast.makeText(getContext(), "pager "+position, Toast.LENGTH_SHORT).show();
+            // changing the next button text 'NEXT' / 'GOT IT'
+        }
+    };
+
+//    private Fragment startFragment(Fragment fragment) {
+//        getChildFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, fragment).commit();
+//    }
 }

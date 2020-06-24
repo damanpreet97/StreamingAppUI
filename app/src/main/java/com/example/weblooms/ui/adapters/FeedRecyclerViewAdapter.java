@@ -1,6 +1,9 @@
 package com.example.weblooms.ui.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +20,27 @@ import java.util.ArrayList;
 
 public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerViewAdapter.ViewHolder> {
 
-    private Context context;
     private ArrayList<String> imageList;
+    private int deviceheight;
+    private int devicewidth;
 
-    public FeedRecyclerViewAdapter(Context context, ArrayList<String> imageList){
+    public FeedRecyclerViewAdapter(ArrayList<String> imageList){
         this.imageList = imageList;
-        this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layout = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
+        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((Activity)parent.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        //if you need three fix imageview in width
+        devicewidth = displaymetrics.widthPixels / 3;
+
+        //if you need 4-5-6 anything fix imageview in height
+        deviceheight = displaymetrics.heightPixels / 4;
+
         return new ViewHolder(layout);
     }
 
@@ -36,11 +48,13 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Picasso.get().load(imageList.get(position)).into(holder.imageView);
         holder.textView.setText((position*10) + "");
+        Log.e("TAG", "onBindViewHolder: " + imageList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        Log.e("TAG", "getItemCount: "+ imageList.size());
+        return imageList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,8 +63,11 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            Log.e("TAG", "ViewHolder: inside its constructor");
             imageView = itemView.findViewById(R.id.image_view_item);
             textView = itemView.findViewById(R.id.text_likes_item);
+            imageView.getLayoutParams().width = devicewidth;
+            imageView.getLayoutParams().height= deviceheight;
         }
     }
 }

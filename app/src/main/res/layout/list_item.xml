@@ -7,24 +7,21 @@
 
     <ImageView
         android:id="@+id/image_view_item"
-        android:layout_width="100dp"
-        android:minHeight="150dp"
-        android:minWidth="100dp"
-        android:layout_height="150dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/text_likes_item"
         android:gravity="center|start"
         tools:text="1000"
-        android:textSize="20sp"
+        android:background="@drawable/image_bottom_gradient"
+        android:textSize="16sp"
         android:textColor="@color/white"
-        android:paddingStart="4dp"
+        android:paddingStart="20dp"
         android:drawablePadding="10dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:alpha="0.7"
         android:layout_gravity="bottom"
         android:drawableStart="@drawable/ic_heart_unfilled"/>
 </FrameLayout>
