@@ -24,6 +24,9 @@ public class DashboardViewModel extends ViewModel {
         imageArrayList.add("https://randomuser.me/api/portraits/men/50.jpg");
         imageArrayList.add("https://randomuser.me/api/portraits/men/35.jpg");
         imageArrayList.add("https://randomuser.me/api/portraits/men/64.jpg");
+        imageArrayList.add("https://randomuser.me/api/portraits/women/74.jpg");
+        imageArrayList.add("https://randomuser.me/api/portraits/women/47.jpg");
+        imageArrayList.add("https://randomuser.me/api/portraits/women/5.jpg");
 
         imagesMutableLiveDataArrayList = new MutableLiveData<>();
         imagesMutableLiveDataArrayList.setValue(imageArrayList);

@@ -37,9 +37,10 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
         ((Activity)parent.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         //if you need three fix imageview in width
         devicewidth = displaymetrics.widthPixels / 3;
-
+        Log.e("TAG", "onCreateViewHolder: image width = " + devicewidth);
         //if you need 4-5-6 anything fix imageview in height
-        deviceheight = displaymetrics.heightPixels / 4;
+        deviceheight = (int)(devicewidth * 1.2);
+        Log.e("TAG", "onCreateViewHolder: image height = " + deviceheight);
 
         return new ViewHolder(layout);
     }
@@ -66,6 +67,7 @@ public class FeedRecyclerViewAdapter extends RecyclerView.Adapter<FeedRecyclerVi
             Log.e("TAG", "ViewHolder: inside its constructor");
             imageView = itemView.findViewById(R.id.image_view_item);
             textView = itemView.findViewById(R.id.text_likes_item);
+            textView.getLayoutParams().width = devicewidth;
             imageView.getLayoutParams().width = devicewidth;
             imageView.getLayoutParams().height= deviceheight;
         }

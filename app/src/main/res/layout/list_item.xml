@@ -16,11 +16,11 @@
         android:gravity="center|start"
         tools:text="1000"
         android:background="@drawable/image_bottom_gradient"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/white"
         android:paddingStart="20dp"
         android:drawablePadding="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="bottom"
         android:drawableStart="@drawable/ic_heart_unfilled"/>
