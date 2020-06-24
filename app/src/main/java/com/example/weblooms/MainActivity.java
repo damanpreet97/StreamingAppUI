@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        final BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                         openFragment(new HomeFragment());
                             return true;
                     case R.id.navigation_account:
-                        openFragment(new DashboardFragment());
+                        openFragment(new NotificationsFragment());
                         return true;
                 }
                 return false;
@@ -54,10 +54,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment)
+                .commit();
     }
 
 }

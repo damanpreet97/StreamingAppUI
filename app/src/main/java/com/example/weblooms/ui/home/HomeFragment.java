@@ -41,27 +41,27 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
+//        final TextView textView = root.findViewById(R.id.text_home);
 
 
 //        actionBar = findViewById(R.id.app_bar);
         toolbar = root.findViewById(R.id.toolbar);
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
 
 //        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 //        getActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
 //        getSupportActionBar().setDisplayShowHomeEnabled(false);
 //
 //        final TextView textView = root.findViewById(R.id.text_home);
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
 //                textView.setText(s);
-//            }
-//        });
+            }
+        });
         return root;
     }
 
@@ -83,13 +83,6 @@ public class HomeFragment extends Fragment {
                 }
         ).attach();
 
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                Toast.makeText(getContext(), "pager register "+position, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -128,14 +121,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    ViewPager2.OnPageChangeCallback pageChangeCallback = new ViewPager2.OnPageChangeCallback() {
-        @Override
-        public void onPageSelected(int position) {
-            super.onPageSelected(position);
-                Toast.makeText(getContext(), "pager "+position, Toast.LENGTH_SHORT).show();
-            // changing the next button text 'NEXT' / 'GOT IT'
-        }
-    };
 
 //    private Fragment startFragment(Fragment fragment) {
 //        getChildFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, fragment).commit();
